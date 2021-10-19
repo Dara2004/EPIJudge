@@ -23,17 +23,19 @@ RED, WHITE, BLUE = range(3)
 ### optimal solution ###
 # Time: O(N), space: O(1)
 def dutch_flag_partition(pivot_index: int, A: List[int]) -> None:
+    # think of partitioning the array into 3 parts: smaller, unclassified, larger
     s, e, l, pivot = 0, 0, len(A) - 1, A[pivot_index] #smaller, equal, larger
     while e <= l:
-        if A[e] < pivot:
+        # A[e] = the next unclassified number to be classified
+        if A[e] < pivot: # about to classify number as smaller
             A[e], A[s] = A[s], A[e]
+            e += 1 # move e to the next unclassified number
+            s += 1 # move s to the next smaller number
+        elif A[e] == pivot: #curr number at e is about to be classified as smaller
             e += 1
-            s += 1
-        elif A[e] == pivot:
-            e += 1
-        else:
+        else: #curr number at e is about to be classified as smaller
             A[e], A[l] = A[l], A[e]
-            l -= 1
+            l -= 1 # move l to the next larger number
 
 @enable_executor_hook
 def dutch_flag_partition_wrapper(executor, A, pivot_idx):
