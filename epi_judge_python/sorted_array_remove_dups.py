@@ -6,9 +6,15 @@ from test_framework.test_utils import enable_executor_hook
 
 
 # Returns the number of valid entries after deletion.
+# and mutate the array
+# [1, 2, 3, 3, 3, 3, 4, 4, 5, 5, 6]
 def delete_duplicates(A: List[int]) -> int:
-    # TODO - you fill in here.
-    return 0
+    write_idx = 1 #the next dup number to be replaced
+    for i in range(1, len(A)):
+        if A[i] != A[write_idx-1]: #found a new number that we currently don't have (write_idx-1 represents the last num we have)
+            A[write_idx] = A[i]
+            write_idx += 1
+    return write_idx
 
 
 @enable_executor_hook
